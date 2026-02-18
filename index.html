@@ -366,9 +366,9 @@ button.voltar{
 
 <nav>
   <button onclick="toggleForm('formCadastro')">➕ Cadastrar Serviço / Grátis</button>
-  <button onclick="toggleForm('formReclamacao')">⚠️ Reclamação</button>
   <button onclick="toggleForm('formPlanoDestaque')">⭐ Plano Destaque 19,90/mês</button>
 </nav>
+
 
 <div class="search">
   <input type="text" id="busca" placeholder="Buscar por serviço ou bairro...">
@@ -393,13 +393,6 @@ button.voltar{
 <button type="button" class="voltar" onclick="voltarPagina()">← Voltar</button>
 </form>
 
-<form id="formReclamacao">
-<h3>Reclamação</h3>
-<input id="nomeRec" placeholder="Nome do local" required>
-<textarea id="textoRec" placeholder="Descreva o problema" required></textarea>
-<button>Enviar Reclamação</button>
-<button type="button" class="voltar" onclick="voltarPagina()">← Voltar</button>
-</form>
 
 <form id="formPlanoDestaque">
 <h3>⭐ Quero Plano Destaque</h3>
@@ -437,7 +430,7 @@ button.voltar{
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase
+// 🔥 FIREBASE
 const firebaseConfig = {
  apiKey:"AIzaSyDDykQQH_vhq9lj4dlwPZgtrZQDFr8eVcI",
  authDomain:"dona-paula-pix.firebaseapp.com",
@@ -446,14 +439,14 @@ const firebaseConfig = {
  messagingSenderId:"786103759925",
  appId:"1:786103759925:web:592b34220b9a38753f2d7c"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ELEMENTOS
+// 📦 ELEMENTOS
 const intro=document.getElementById("intro");
 const site=document.getElementById("site");
 const form=document.getElementById("formCadastro");
-const formRec=document.getElementById("formReclamacao");
 const formPlano=document.getElementById("formPlanoDestaque");
 const lista=document.getElementById("lista");
 const busca=document.getElementById("busca");
@@ -467,18 +460,25 @@ const chatSend=document.getElementById("chatSend");
 const chatTyping=document.getElementById("chatTyping");
 const assistente=document.getElementById("assistente");
 
-// FUNÇÕES
-window.iniciar = ()=>{intro.style.display="none"; site.style.display="block";}
-window.voltarPagina = ()=>{form.style.display="none"; formRec.style.display="none"; formPlano.style.display="none";}
+// ⚙️ FUNÇÕES
+window.iniciar = ()=>{
+  intro.style.display="none";
+  site.style.display="block";
+}
+
+window.voltarPagina = ()=>{
+  form.style.display="none";
+  formPlano.style.display="none";
+}
+
 window.toggleForm=(id)=>{
   const f=document.getElementById(id);
   f.style.display=f.style.display==="block"?"none":"block";
   if(id!=="formCadastro") form.style.display="none";
-  if(id!=="formReclamacao") formRec.style.display="none";
   if(id!=="formPlanoDestaque") formPlano.style.display="none";
 }
 
-// SLIDER
+// 🎞 SLIDER
 let slideIndex=0;
 function nextSlide(){
   sliderImgs.forEach(img=>img.classList.remove("active"));
@@ -488,9 +488,10 @@ function nextSlide(){
 }
 setInterval(nextSlide,4000);
 
-// CADASTRO GRÁTIS
+// 📝 CADASTRO GRÁTIS
 form.addEventListener("submit", async(e)=>{
   e.preventDefault();
+
   const nomeVal=document.getElementById("nome").value.trim();
   const telefoneVal=document.getElementById("telefone").value.trim();
   const enderecoVal=document.getElementById("endereco").value.trim();
@@ -498,7 +499,10 @@ form.addEventListener("submit", async(e)=>{
   const tipoVal=document.getElementById("tipoInput").value.trim();
   const linkMapsVal=document.getElementById("linkMaps").value.trim();
 
-  if(!nomeVal||!telefoneVal) return alert("Preencha os campos obrigatórios!");
+  if(!nomeVal||!telefoneVal){
+    alert("Preencha os campos obrigatórios!");
+    return;
+  }
 
   await addDoc(collection(db,"servicos"),{
     nome:nomeVal,
@@ -519,7 +523,7 @@ form.addEventListener("submit", async(e)=>{
   form.style.display="none";
 });
 
-// PEDIDO DE PLANO DESTAQUE
+// ⭐ PEDIDO DE PLANO DESTAQUE
 formPlano.addEventListener("submit", async(e)=>{
   e.preventDefault();
 
@@ -551,7 +555,7 @@ formPlano.addEventListener("submit", async(e)=>{
   formPlano.style.display="none";
 });
 
-// RENDER CARDS
+// 🧾 RENDER CARDS
 let dados=[];
 onSnapshot(collection(db,"servicos"), snap=>{
   dados=[];
@@ -583,7 +587,6 @@ function render(arr){
         ">👁 VER</button>
 
         <div class="detalhes">
-          <span>Email: ${p.email || "Não informado"}</span>
           <span>Endereço: ${p.endereco}</span>
           <span>Horário: ${p.horario || "Não informado"}</span>
           <span>Descrição: ${p.descricao}</span>
@@ -597,7 +600,7 @@ function render(arr){
   });
 }
 
-// BUSCA
+// 🔍 BUSCA
 busca.addEventListener("input", ()=>{
   const t=busca.value.toLowerCase();
   render(dados.filter(p=>
@@ -606,17 +609,17 @@ busca.addEventListener("input", ()=>{
   ));
 });
 
-// ASSISTENTE
+// 🤖 ASSISTENTE
 assistente.addEventListener("click", ()=>{
   chatBox.style.display = chatBox.style.display==="block"?"none":"block";
   chatOptions.innerHTML = `
     <button onclick="toggleForm('formCadastro');botResponder('Abrindo formulário de cadastro')">Cadastro</button>
-    <button onclick="toggleForm('formReclamacao');botResponder('Abrindo formulário de reclamação')">Reclamação</button>
+    <button onclick="toggleForm('formPlanoDestaque');botResponder('Abrindo formulário de plano destaque')">Plano Destaque</button>
     <button onclick="window.open('https://api.whatsapp.com/send?phone=88988916133&text=Olá,%20quero%20excluir%20meu%20serviço','_blank');botResponder('Abrindo WhatsApp para exclusão de serviço')">Excluir serviço</button>
   `;
 });
 
-// BOT
+// 💬 BOT
 function botResponder(msg){
   chatTyping.innerText="GuaraBot está digitando...";
   setTimeout(()=>{
@@ -635,13 +638,14 @@ chatSend.addEventListener("click", ()=>{
   chatMessages.scrollTop=chatMessages.scrollHeight;
 
   const m=msg.toLowerCase();
-  if(m.includes("horário") || m.includes("funcionamento")) botResponder("Você pode verificar o horário das empresas nos cards abaixo ou me diga o nome da empresa.");
-  else if(m.includes("whatsapp")) botResponder("Para entrar em contato via WhatsApp, clique no botão verde do card da empresa.");
-  else if(m.includes("excluir")) botResponder("Clique no botão de 'Excluir serviço' acima para abrir o WhatsApp e solicitar exclusão.");
-  else if(m.includes("destaque")) botResponder("O plano destaque aparece com borda dourada e '⭐ DESTAQUE'.");
-  else botResponder("Olá! Sou a GuaraBot 🤖, posso ajudar com dúvidas sobre empresas, horários e planos. Use os botões acima ou digite sua mensagem.");
+  if(m.includes("horário") || m.includes("funcionamento")) botResponder("Você pode verificar o horário das empresas nos cards abaixo.");
+  else if(m.includes("whatsapp")) botResponder("Clique no botão verde do card para abrir o WhatsApp.");
+  else if(m.includes("excluir")) botResponder("Use o botão 'Excluir serviço' acima.");
+  else if(m.includes("destaque")) botResponder("O plano destaque aparece com borda dourada.");
+  else botResponder("Olá! Sou a GuaraBot 🤖. Posso ajudar você a encontrar serviços.");
 });
 </script>
+
 
 </body>
 </html>
