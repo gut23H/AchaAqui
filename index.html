@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Acha Aqui em Guaraciaba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {box-sizing:border-box;}
+
+body {
+  margin:0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:#7ca8e9;
+  color:#1b2b4a; /* COR DO TEXTO */
+  overflow-x:hidden;
+}
+
+a{text-decoration:none; color:inherit;}
+
+/* INTRO */
+#intro {
+  position: fixed;
+  inset:0;
+  background: linear-gradient(135deg, #1c92d2, #7ca8e9);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  z-index:10;
+}
+
+.boneco {font-size:80px; animation: pular 1.5s infinite alternate;}
+@keyframes pular {from{transform:translateY(0);} to{transform:translateY(-15px);}}
+
+#intro button {
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff7e5f;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+#intro button:hover{background:#feb47b;}
+
+/* SITE */
+#site{display:none;}
+
+/* SLIDER TOPO */
+#slider {
+  position:relative;
+  width:95%;
+  max-width:900px;
+  height:200px;
+  margin:15px auto;
+  overflow:hidden;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+#slider img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  top:0;
+  left:0;
+  opacity:0;
+  transition:opacity 1s;
+}
+
+#slider img.active {opacity:1;}
+
+#slider .slider-title {
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  color:white;
+  background:rgba(0,0,0,0.6);
+  padding:6px 12px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+/* NAV */
+nav {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:15px;
+  background:white;
+  box-shadow:0 3px 6px rgba(0,0,0,0.1);
+  border-radius:15px;
+  margin:10px;
+}
+
+nav button {
+  padding:10px 20px;
+  border-radius:25px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  background:#1c92d2;
+  color:white;
+  transition: transform 0.2s, background 0.3s;
+}
+
+nav button:hover{
+  transform:scale(1.05);
+  background:#145a9e;
+}
+
+/* SEARCH */
+.search {
+  padding:15px;
+  max-width:500px;
+  margin:0 auto;
+}
+.search input{
+  width:100%;
+  padding:12px 15px;
+  border-radius:30px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+/* CARDS EMPRESAS */
+.card {
+  background:white;
+  margin:15px auto;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  max-width:500px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.card.destaque {
+  border:2px solid gold;
+  background:#fffbea;
+}
+
+.card b{
+  font-size:18px;
+  color:#1c92d2;
+}
+
+.card span{
+  font-size:14px;
+  color:#333;
+}
+
+.card .card-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.card .card-buttons button{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.card .card-buttons button.whatsapp{
+  background:#25d366;
+  color:white;
+}
+
+.card .card-buttons button.maps{
+  background:#4285F4;
+  color:white;
+}
+
+/* FORMS */
+form {
+  display:none;
+  background:white;
+  margin:20px auto;
+  padding:25px;
+  border-radius:20px;
+  max-width:500px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+form h3{
+  margin-top:0;
+  text-align:center;
+  color:#1c92d2;
+}
+
+input, textarea, select {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  background:#1c92d2;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+
+button.voltar{
+  background:#555;
+}
+
+/* ASSISTENTE */
+#assistente {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff7e5f;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  color:white;
+  animation:bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+/* CHAT */
+#chatBox {
+  display:none;
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:320px;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  padding:10px;
+}
+
+#chatBox h4{
+  margin:0;
+  text-align:center;
+  color:#1c92d2;
+}
+
+#chatMessages{
+  height:200px;
+  overflow-y:auto;
+  margin-bottom:5px;
+}
+
+.message{
+  padding:6px 10px;
+  margin:5px 0;
+  border-radius:10px;
+}
+
+.userMessage{
+  background:#1c92d2;
+  color:white;
+  text-align:right;
+}
+
+.botMessage{
+  background:#e6f0ff;
+  color:#1c92d2;
+}
+
+#chatInput{
+  width:100%;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+#chatSend{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff7e5f;
+  color:white;
+}
+
+#chatOptions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:5px;
+}
+
+#chatOptions button {
+  background:#1c92d2;
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:5px 8px;
+  font-size:13px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="boneco">👷‍♂️🧹🔧💇‍♀️</div>
+  <h1>AchaAqui</h1>
+  <p>Conecte-se com serviços e comércios da sua cidade.</p>
+  <button onclick="iniciar()">🚀 INICIAR</button>
+</div>
+
+<div id="site">
+
+<!-- SLIDER TOPO -->
+<div id="slider">
+  <img src="achaaqui.png" class="active" alt=" ">
+  <img src="anucie.png" alt=" ">
+  <img src="comercios.png" alt=" ">
+  <div class="slider-title" id="sliderTitle">🌄 Ache Aqui em Guaraciaba</div>
+</div>
+
+<nav>
+  <button onclick="toggleForm('formCadastro')">➕ Cadastrar Serviço / Grátis</button>
+  <button onclick="toggleForm('formReclamacao')">⚠️ Reclamação</button>
+  <button onclick="toggleForm('formPlanoDestaque')">⭐ Plano Destaque 19,90/mês</button>
+</nav>
+
+<div class="search">
+  <input type="text" id="busca" placeholder="Buscar por serviço ou bairro...">
+</div>
+
+<!-- FORMULÁRIOS -->
+<form id="formCadastro">
+<h3>Cadastro Plano Grátis</h3>
+<input id="nome" placeholder="Nome da empresa" required>
+<input id="telefone" placeholder="WhatsApp (DDD + número)" required>
+<input id="endereco" placeholder="Endereço completo" required>
+<input id="horario" placeholder="Horário de funcionamento" required>
+<label for="tipoInput">Tipo de empresa</label>
+<input list="tipos" id="tipoInput" placeholder="Digite ou escolha..." required>
+<datalist id="tipos">
+  <option>Pedreiro</option><option>Eletricista</option><option>Diarista</option><option>Mecânico</option>
+  <option>Cabeleireiro / Barbeiro</option><option>Encanador</option><option>Pintor</option>
+  <option>Chaveiro</option><option>Jardineiro</option><option>Fotógrafo</option><option>Outros</option>
+</datalist>
+<input id="linkMaps" placeholder="Link do Google Maps (opcional)">
+<button type="submit">Salvar Cadastro</button>
+<button type="button" class="voltar" onclick="voltarPagina()">← Voltar</button>
+</form>
+
+<form id="formReclamacao">
+<h3>Reclamação</h3>
+<input id="nomeRec" placeholder="Nome do local" required>
+<textarea id="textoRec" placeholder="Descreva o problema" required></textarea>
+<button>Enviar Reclamação</button>
+<button type="button" class="voltar" onclick="voltarPagina()">← Voltar</button>
+</form>
+
+<form id="formPlanoDestaque">
+<h3>⭐ Quero Plano Destaque</h3>
+<input id="nomePlano" placeholder="Nome da empresa" required>
+<input id="telefonePlano" placeholder="WhatsApp" required>
+<input id="enderecoPlano" placeholder="Endereço completo" required>
+<input id="horarioPlano" placeholder="Horário de funcionamento">
+<label for="tipoPlanoInput">Tipo de empresa</label>
+<input list="tiposPlano" id="tipoPlanoInput" placeholder="Digite ou escolha...">
+<datalist id="tiposPlano">
+  <option>Pedreiro</option><option>Eletricista</option><option>Diarista</option><option>Mecânico</option>
+  <option>Cabeleireiro / Barbeiro</option><option>Encanador</option><option>Pintor</option>
+  <option>Chaveiro</option><option>Jardineiro</option><option>Fotógrafo</option><option>Outros</option>
+</datalist>
+<input id="linkMapsPlano" placeholder="Link do Google Maps (opcional)">
+<button>Enviar Pedido</button>
+<button type="button" class="voltar" onclick="voltarPagina()">← Voltar</button>
+</form>
+
+<!-- LISTA DE EMPRESAS -->
+<div id="lista"></div>
+
+<!-- ASSISTENTE -->
+<div id="assistente">🤖</div>
+<div id="chatBox">
+<h4>GuaraBot</h4>
+<div id="chatMessages"></div>
+<div id="chatOptions"></div>
+<div id="chatTyping"></div>
+<input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+<button id="chatSend">Enviar</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Firebase
+const firebaseConfig = {
+ apiKey:"AIzaSyDDykQQH_vhq9lj4dlwPZgtrZQDFr8eVcI",
+ authDomain:"dona-paula-pix.firebaseapp.com",
+ projectId:"dona-paula-pix",
+ storageBucket:"dona-paula-pix.firebasestorage.app",
+ messagingSenderId:"786103759925",
+ appId:"1:786103759925:web:592b34220b9a38753f2d7c"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ELEMENTOS
+const intro=document.getElementById("intro");
+const site=document.getElementById("site");
+const form=document.getElementById("formCadastro");
+const formRec=document.getElementById("formReclamacao");
+const formPlano=document.getElementById("formPlanoDestaque");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const sliderImgs=document.querySelectorAll("#slider img");
+const sliderTitle=document.getElementById("sliderTitle");
+const chatBox=document.getElementById("chatBox");
+const chatMessages=document.getElementById("chatMessages");
+const chatOptions=document.getElementById("chatOptions");
+const chatInput=document.getElementById("chatInput");
+const chatSend=document.getElementById("chatSend");
+const chatTyping=document.getElementById("chatTyping");
+const assistente=document.getElementById("assistente");
+
+// FUNÇÕES
+window.iniciar = ()=>{intro.style.display="none"; site.style.display="block";}
+window.voltarPagina = ()=>{form.style.display="none"; formRec.style.display="none"; formPlano.style.display="none";}
+window.toggleForm=(id)=>{
+  const f=document.getElementById(id);
+  f.style.display=f.style.display==="block"?"none":"block";
+  if(id!=="formCadastro") form.style.display="none";
+  if(id!=="formReclamacao") formRec.style.display="none";
+  if(id!=="formPlanoDestaque") formPlano.style.display="none";
+}
+
+// SLIDER
+let slideIndex=0;
+function nextSlide(){
+  sliderImgs.forEach(img=>img.classList.remove("active"));
+  sliderImgs[slideIndex].classList.add("active");
+  sliderTitle.innerText = sliderImgs[slideIndex].alt;
+  slideIndex=(slideIndex+1)%sliderImgs.length;
+}
+setInterval(nextSlide,4000);
+
+// CADASTRO
+form.addEventListener("submit", async(e)=>{
+  e.preventDefault();
+  const nomeVal=document.getElementById("nome").value.trim();
+  const telefoneVal=document.getElementById("telefone").value.trim();
+  const enderecoVal=document.getElementById("endereco").value.trim();
+  const horarioVal=document.getElementById("horario").value.trim();
+  const tipoVal=document.getElementById("tipoInput").value.trim();
+  const linkMapsVal=document.getElementById("linkMaps").value.trim();
+  if(!nomeVal||!telefoneVal) return alert("Preencha os campos obrigatórios!");
+  await addDoc(collection(db,"servicos"),{
+    nome:nomeVal, telefone:telefoneVal, endereco:enderecoVal, horario:horarioVal, tipo:tipoVal,
+    linkMaps:linkMapsVal||"", descricao:"Plano Grátis", nota:0, votos:0, destaque:false
+  });
+  alert(`Parabéns! Sua empresa "${nomeVal}" foi cadastrada!`);
+  form.reset(); form.style.display="none";
+});
+
+// RENDER CARDS
+let dados=[];
+onSnapshot(collection(db,"servicos"), snap=>{
+  dados=[];
+  snap.forEach(d=>dados.push({id:d.id,...d.data()}));
+  render(dados);
+});
+function render(arr){
+  lista.innerHTML="";
+  if(arr.length===0){lista.innerHTML="<p style='text-align:center;'>Nenhuma empresa disponível</p>"; return;}
+  arr.forEach(p=>{
+    lista.innerHTML+=`
+      <div class="card ${p.destaque?"destaque":""}">
+        <b>${p.nome}</b><span>${p.destaque?" ⭐ DESTAQUE":""}</span>
+        <span>Tipo: ${p.tipo}</span>
+        <span>Endereço: ${p.endereco}</span>
+        <span>Horário: ${p.horario || "Não informado"}</span>
+        <span>Descrição: ${p.descricao}</span>
+        <div class="card-buttons">
+          <button class="whatsapp" onclick="window.open('https://wa.me/55${p.telefone}','_blank')">WhatsApp</button>
+          ${p.linkMaps?`<button class="maps" onclick="window.open('${p.linkMaps}','_blank')">Google Maps</button>`:""}
+        </div>
+      </div>`;
+  });
+}
+
+// BUSCA
+busca.addEventListener("input", ()=>{
+  const t=busca.value.toLowerCase();
+  render(dados.filter(p=>p.tipo.toLowerCase().includes(t)||p.endereco.toLowerCase().includes(t)));
+});
+
+// ASSISTENTE
+assistente.addEventListener("click", ()=>{
+  chatBox.style.display = chatBox.style.display==="block"?"none":"block";
+  chatOptions.innerHTML = `
+    <button onclick="toggleForm('formCadastro');botResponder('Abrindo formulário de cadastro')">Cadastro</button>
+    <button onclick="toggleForm('formReclamacao');botResponder('Abrindo formulário de reclamação')">Reclamação</button>
+    <button onclick="window.open('https://api.whatsapp.com/send?phone=88988916133&text=Olá,%20quero%20excluir%20meu%20serviço','_blank');botResponder('Abrindo WhatsApp para exclusão de serviço')">Excluir serviço</button>
+  `;
+});
+
+// BOT
+function botResponder(msg){
+  chatTyping.innerText="GuaraBot está digitando...";
+  setTimeout(()=>{
+    chatTyping.innerText="";
+    chatMessages.innerHTML+=`<div class="message botMessage">${msg}</div>`;
+    chatMessages.scrollTop=chatMessages.scrollHeight;
+  },800 + Math.random()*800);
+}
+
+chatSend.addEventListener("click", ()=>{
+  const msg=chatInput.value.trim();
+  if(!msg) return;
+  chatMessages.innerHTML+=`<div class="message userMessage">${msg}</div>`;
+  chatInput.value=""; chatMessages.scrollTop=chatMessages.scrollHeight;
+
+  const m=msg.toLowerCase();
+  if(m.includes("horário") || m.includes("funcionamento")) botResponder("Você pode verificar o horário das empresas nos cards abaixo ou me diga o nome da empresa.");
+  else if(m.includes("whatsapp")) botResponder("Para entrar em contato via WhatsApp, clique no botão verde do card da empresa.");
+  else if(m.includes("excluir")) botResponder("Clique no botão de 'Excluir serviço' acima para abrir o WhatsApp e solicitar exclusão.");
+  else if(m.includes("destaque")) botResponder("O plano destaque aparece com borda dourada e '⭐ DESTAQUE'.");
+  else botResponder("Olá! Sou a GuaraBot 🤖, posso ajudar com dúvidas sobre empresas, horários e planos. Use os botões acima ou digite sua mensagem.");
+});
+</script>
+</body>
+</html>
