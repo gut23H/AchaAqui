@@ -480,6 +480,24 @@ window.toggleForm=(id)=>{
   if(id!=="formCadastro") form.style.display="none";
   if(id!=="formPlanoDestaque") formPlano.style.display="none";
 }
+window.denunciar = async (empresa)=>{
+  const motivo = prompt("Motivo da denúncia:\n1 - Número falso\n2 - Serviço ruim\n3 - Golpe");
+
+  if(!motivo) return;
+
+  let textoMotivo = "Outro";
+  if(motivo=="1") textoMotivo="Número falso";
+  if(motivo=="2") textoMotivo="Serviço ruim";
+  if(motivo=="3") textoMotivo="Golpe";
+
+  await addDoc(collection(db,"denuncias"),{
+    empresa: empresa,
+    motivo: textoMotivo,
+    data: new Date().toISOString()
+  });
+
+  alert("🚩 Denúncia enviada!");
+}
 
 // 🎞 SLIDER
 let slideIndex=0;
@@ -598,7 +616,7 @@ function render(arr){
           <span>Endereço: ${p.endereco}</span>
           <span>Horário: ${p.horario || "Não informado"}</span>
           <span>Descrição: ${p.descricao}</span>
-
+<button onclick="denunciar('${p.nome}')">🚩 Denunciar</button>
           <div class="avaliar">
             Avaliar:
             ${[1,2,3,4,5].map(n=>`
@@ -694,5 +712,3 @@ chatSend.addEventListener("click", ()=>{
 
 </body>
 </html>
-
-
