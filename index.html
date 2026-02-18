@@ -504,18 +504,23 @@ function render(arr){
   lista.innerHTML="";
   if(arr.length===0){lista.innerHTML="<p style='text-align:center;'>Nenhuma empresa disponível</p>"; return;}
   arr.forEach(p=>{
-    lista.innerHTML+=`
-      <div class="card ${p.destaque?"destaque":""}">
-        <b>${p.nome}</b><span>${p.destaque?" ⭐ DESTAQUE":""}</span>
-        <span>Tipo: ${p.tipo}</span>
-        <span>Endereço: ${p.endereco}</span>
-        <span>Horário: ${p.horario || "Não informado"}</span>
-        <span>Descrição: ${p.descricao}</span>
-        <div class="card-buttons">
-          <button class="whatsapp" onclick="window.open('https://wa.me/55${p.telefone}','_blank')">WhatsApp</button>
-          ${p.linkMaps?`<button class="maps" onclick="window.open('${p.linkMaps}','_blank')">Google Maps</button>`:""}
-        </div>
-      </div>`;
+  lista.innerHTML+=`
+  <div class="card ${p.destaque?"destaque":""}">
+    <b>
+      ${p.nome}
+      ${p.verificado ? `<img src="verificado.png" style="width:16px;vertical-align:middle;margin-left:5px;">` : ""}
+    </b>
+    <span>${p.destaque ? " 🜲 " : ""}</span>
+    <span>Tipo: ${p.tipo}</span>
+    <span>Endereço: ${p.endereco}</span>
+    <span>Horário: ${p.horario || "Não informado"}</span>
+    <span>Descrição: ${p.descricao}</span>
+    <div class="card-buttons">
+      <button class="whatsapp" onclick="window.open('https://wa.me/55${p.telefone}','_blank')">WhatsApp</button>
+      ${p.linkMaps?`<button class="maps" onclick="window.open('${p.linkMaps}','_blank')">Google Maps</button>`:""}
+    </div>
+  </div>`;
+
   });
 }
 
@@ -561,4 +566,5 @@ chatSend.addEventListener("click", ()=>{
 </script>
 </body>
 </html>
+
 
