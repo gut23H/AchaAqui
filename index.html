@@ -497,13 +497,26 @@ form.addEventListener("submit", async(e)=>{
   const horarioVal=document.getElementById("horario").value.trim();
   const tipoVal=document.getElementById("tipoInput").value.trim();
   const linkMapsVal=document.getElementById("linkMaps").value.trim();
+
   if(!nomeVal||!telefoneVal) return alert("Preencha os campos obrigatórios!");
+
   await addDoc(collection(db,"servicos"),{
-    nome:nomeVal, telefone:telefoneVal, endereco:enderecoVal, horario:horarioVal, tipo:tipoVal,
-    linkMaps:linkMapsVal||"", descricao:"Plano Grátis", nota:0, votos:0, destaque:false
+    nome:nomeVal,
+    telefone:telefoneVal,
+    endereco:enderecoVal,
+    horario:horarioVal,
+    tipo:tipoVal,
+    linkMaps:linkMapsVal||"",
+    descricao:"Plano Grátis",
+    nota:0,
+    votos:0,
+    destaque:false,
+    verificado:false
   });
+
   alert(`Parabéns! Sua empresa "${nomeVal}" foi cadastrada!`);
-  form.reset(); form.style.display="none";
+  form.reset(); 
+  form.style.display="none";
 });
 
 // RENDER CARDS
@@ -513,13 +526,15 @@ onSnapshot(collection(db,"servicos"), snap=>{
   snap.forEach(d=>dados.push({id:d.id,...d.data()}));
   render(dados);
 });
+
 function render(arr){
   lista.innerHTML="";
   if(arr.length===0){
     lista.innerHTML="<p style='text-align:center;'>Nenhuma empresa disponível</p>";
     return;
   }
-   arr.forEach(p=>{
+
+  arr.forEach(p=>{
     lista.innerHTML+=`
       <div class="card ${p.destaque?"destaque":""}" onclick="this.classList.toggle('aberto')">
         
@@ -545,10 +560,14 @@ function render(arr){
       </div>`;
   });
 }
+
 // BUSCA
 busca.addEventListener("input", ()=>{
   const t=busca.value.toLowerCase();
-  render(dados.filter(p=>p.tipo.toLowerCase().includes(t)||p.endereco.toLowerCase().includes(t)));
+  render(dados.filter(p=>
+    p.tipo.toLowerCase().includes(t) ||
+    p.endereco.toLowerCase().includes(t)
+  ));
 });
 
 // ASSISTENTE
@@ -574,8 +593,10 @@ function botResponder(msg){
 chatSend.addEventListener("click", ()=>{
   const msg=chatInput.value.trim();
   if(!msg) return;
+
   chatMessages.innerHTML+=`<div class="message userMessage">${msg}</div>`;
-  chatInput.value=""; chatMessages.scrollTop=chatMessages.scrollHeight;
+  chatInput.value="";
+  chatMessages.scrollTop=chatMessages.scrollHeight;
 
   const m=msg.toLowerCase();
   if(m.includes("horário") || m.includes("funcionamento")) botResponder("Você pode verificar o horário das empresas nos cards abaixo ou me diga o nome da empresa.");
@@ -585,6 +606,7 @@ chatSend.addEventListener("click", ()=>{
   else botResponder("Olá! Sou a GuaraBot 🤖, posso ajudar com dúvidas sobre empresas, horários e planos. Use os botões acima ou digite sua mensagem.");
 });
 </script>
+
 </body>
 </html>
 
