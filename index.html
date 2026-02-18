@@ -428,7 +428,10 @@ button.voltar{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { 
+  getFirestore, collection, addDoc, onSnapshot,
+  doc, getDoc, updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // 🔥 FIREBASE
 const firebaseConfig = {
@@ -578,6 +581,11 @@ function render(arr){
           ${p.verificado ? `<img src="verificado.png" style="width:16px;vertical-align:middle;margin-left:5px;">` : ""}
         </b>
 
+        <div class="avaliacao">
+          ${gerarEstrelas(p.nota || 0)}
+          <small>(${(p.nota || 0).toFixed(1)})</small>
+        </div>
+
         <span><strong>Tipo:</strong> ${p.tipo}</span>
 
         <button class="btn-ver" onclick="
@@ -591,6 +599,13 @@ function render(arr){
           <span>Horário: ${p.horario || "Não informado"}</span>
           <span>Descrição: ${p.descricao}</span>
 
+          <div class="avaliar">
+            Avaliar:
+            ${[1,2,3,4,5].map(n=>`
+              <span onclick="avaliar('${p.id}',${n})" style="cursor:pointer;font-size:20px;">⭐</span>
+            `).join("")}
+          </div>
+
           <div class="card-buttons">
             <button class="whatsapp" onclick="event.stopPropagation();window.open('https://wa.me/55${p.telefone}','_blank')">WhatsApp</button>
             ${p.linkMaps?`<button class="maps" onclick="event.stopPropagation();window.open('${p.linkMaps}','_blank')">Google Maps</button>`:""}
@@ -599,6 +614,35 @@ function render(arr){
       </div>`;
   });
 }
+
+// ⭐ GERAR ESTRELAS
+function gerarEstrelas(nota){
+  let estrelas="";
+  for(let i=1;i<=5;i++){
+    estrelas += i <= Math.round(nota) ? "⭐" : "☆";
+  }
+  return estrelas;
+}
+
+// ⭐ AVALIAR
+window.avaliar = async (id, valor)=>{
+  const ref = doc(db,"servicos",id);
+  const snap = await getDoc(ref);
+  if(!snap.exists()) return;
+
+  const dados = snap.data();
+  let votos = dados.votos || 0;
+  let nota = dados.nota || 0;
+
+  let novaMedia = ((nota * votos) + valor) / (votos + 1);
+
+  await updateDoc(ref,{
+    nota: novaMedia,
+    votos: votos + 1
+  });
+
+  alert("⭐ Obrigado por avaliar!");
+};
 
 // 🔍 BUSCA
 busca.addEventListener("input", ()=>{
@@ -638,13 +682,14 @@ chatSend.addEventListener("click", ()=>{
   chatMessages.scrollTop=chatMessages.scrollHeight;
 
   const m=msg.toLowerCase();
-  if(m.includes("horário") || m.includes("funcionamento")) botResponder("Você pode verificar o horário das empresas nos cards abaixo.");
-  else if(m.includes("whatsapp")) botResponder("Clique no botão verde do card para abrir o WhatsApp.");
-  else if(m.includes("excluir")) botResponder("Use o botão 'Excluir serviço' acima.");
-  else if(m.includes("destaque")) botResponder("O plano destaque aparece com borda dourada.");
-  else botResponder("Olá! Sou a GuaraBot 🤖. Posso ajudar você a encontrar serviços.");
+  if(m.includes("horário")) botResponder("Veja o horário nos cards das empresas.");
+  else if(m.includes("whatsapp")) botResponder("Clique no botão verde para abrir o WhatsApp.");
+  else if(m.includes("excluir")) botResponder("Use o botão Excluir serviço.");
+  else if(m.includes("destaque")) botResponder("Plano destaque aparece com borda dourada.");
+  else botResponder("Olá! Sou a GuaraBot 🤖.");
 });
 </script>
+
 
 
 </body>
