@@ -7,24 +7,21 @@
 <meta name="theme-color" content="#1c92d2">
 <meta name="mobile-web-app-capable" content="yes">
 
-<style>
-* {box-sizing:border-box;}
 
-body {
-  margin:0;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background:#7ca8e9;
-  color:#1b2b4a; /* COR DO TEXTO */
-  overflow-x:hidden;
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Segoe UI',system-ui,Arial,sans-serif;
+  background:#eef2f7;
+  color:#1f2937;
 }
 
-a{text-decoration:none; color:inherit;}
-
 /* INTRO */
-#intro {
-  position: fixed;
+#intro{
+  position:fixed;
   inset:0;
-  background: linear-gradient(135deg, #1c92d2, #7ca8e9);
+  background:linear-gradient(135deg,#0f172a,#1e3a8a);
   color:white;
   display:flex;
   flex-direction:column;
@@ -35,314 +32,220 @@ a{text-decoration:none; color:inherit;}
   z-index:10;
 }
 
-.boneco {font-size:80px; animation: pular 1.5s infinite alternate;}
-@keyframes pular {from{transform:translateY(0);} to{transform:translateY(-15px);}}
+.boneco{font-size:70px;}
 
-#intro button {
-  padding:12px 25px;
+#intro h1{font-size:32px;margin:10px 0;}
+#intro p{opacity:.85;}
+
+#intro button{
+  margin-top:20px;
+  padding:14px 35px;
   border:none;
   border-radius:30px;
-  background:#ff7e5f;
+  background:#2563eb;
   color:white;
   font-size:16px;
-  cursor:pointer;
 }
-#intro button:hover{background:#feb47b;}
 
-/* SITE */
-#site{display:none;}
-
-/* SLIDER TOPO */
-#slider {
+/* SLIDER */
+#slider{
   position:relative;
   width:95%;
   max-width:900px;
-  height:200px;
+  height:180px;
   margin:15px auto;
+  border-radius:16px;
   overflow:hidden;
-  border-radius:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
 }
 
-#slider img {
+#slider img{
   width:100%;
   height:100%;
   object-fit:cover;
   position:absolute;
-  top:0;
-  left:0;
+  inset:0;
   opacity:0;
   transition:opacity 1s;
 }
 
-#slider img.active {opacity:1;}
+#slider img.active{opacity:1;}
 
-#slider .slider-title {
+#slider .slider-title{
   position:absolute;
-  bottom:10px;
-  left:10px;
+  bottom:8px;
+  left:8px;
+  background:rgba(0,0,0,.6);
   color:white;
-  background:rgba(0,0,0,0.6);
-  padding:6px 12px;
+  padding:5px 12px;
   border-radius:10px;
-  font-weight:bold;
-  font-size:16px;
+  font-size:13px;
 }
 
 /* NAV */
-nav {
+nav{
   display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
+  flex-direction:column;
+  gap:10px;
   padding:15px;
   background:white;
-  box-shadow:0 3px 6px rgba(0,0,0,0.1);
-  border-radius:15px;
   margin:10px;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
 }
 
-nav button {
-  padding:10px 20px;
-  border-radius:25px;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  background:#1c92d2;
+nav button{
+  background:#2563eb;
   color:white;
-  transition: transform 0.2s, background 0.3s;
-}
-
-nav button:hover{
-  transform:scale(1.05);
-  background:#145a9e;
+  border:none;
+  border-radius:25px;
+  padding:12px;
+  font-weight:600;
 }
 
 /* SEARCH */
-.search {
-  padding:15px;
-  max-width:500px;
-  margin:0 auto;
+.search{
+  padding:10px;
 }
+
 .search input{
   width:100%;
-  padding:12px 15px;
+  padding:14px 18px;
   border-radius:30px;
-  border:1px solid #ccc;
-  font-size:16px;
+  border:1px solid #cbd5e1;
+  font-size:15px;
 }
 
-/* CARDS EMPRESAS */
-.card {
+/* CARD */
+.card{
   background:white;
-  margin:15px auto;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-  max-width:500px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+  margin:12px;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
 }
 
-.card:hover {
-  transform:translateY(-5px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-}
-
-.card.destaque {
+.card.destaque{
   border:2px solid gold;
   background:#fffbea;
 }
 
 .card b{
   font-size:18px;
-  color:#1c92d2;
+  color:#1e3a8a;
 }
 
-.card span{
-  font-size:14px;
-  color:#333;
+.card span{font-size:14px;}
+
+.card .avaliacao{margin:6px 0;}
+
+.card .detalhes{
+  display:none;
+  margin-top:10px;
+  border-top:1px solid #e5e7eb;
+  padding-top:10px;
 }
 
+.card.aberto .detalhes{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* BOTÕES CARD */
 .card .card-buttons{
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  gap:8px;
   margin-top:10px;
 }
 
-.card .card-buttons button{
-  flex:1;
+.whatsapp{background:#22c55e;color:white;}
+.maps{background:#2563eb;color:white;}
+
+.card button{
   padding:10px;
   border-radius:12px;
   border:none;
-  cursor:pointer;
-  font-weight:bold;
+  font-weight:600;
 }
 
-.card .card-buttons button.whatsapp{
-  background:#25d366;
-  color:white;
-}
-
-.card .card-buttons button.maps{
-  background:#4285F4;
-  color:white;
-}
-
-/* FORMS */
-form {
+/* FORM */
+form{
   display:none;
   background:white;
-  margin:20px auto;
-  padding:25px;
-  border-radius:20px;
-  max-width:500px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.15);
+  margin:12px;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
-form h3{
-  margin-top:0;
-  text-align:center;
-  color:#1c92d2;
-}
+form h3{text-align:center;color:#1e3a8a;}
 
-input, textarea, select {
+input,textarea,select{
   width:100%;
   padding:12px;
   margin-top:10px;
   border-radius:10px;
-  border:1px solid #ccc;
-  font-size:15px;
-}
-
-button{
-  width:100%;
-  padding:12px;
-  border-radius:20px;
-  background:#1c92d2;
-  color:white;
-  border:none;
-  cursor:pointer;
-}
-
-button.voltar{
-  background:#555;
+  border:1px solid #cbd5e1;
 }
 
 /* ASSISTENTE */
-#assistente {
+#assistente{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
+  bottom:15px;
+  right:15px;
+  width:55px;
+  height:55px;
   border-radius:50%;
-  background:#ff7e5f;
-  cursor:pointer;
+  background:#2563eb;
+  color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:28px;
-  color:white;
-  animation:bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-15px);}
+  font-size:24px;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
 }
 
 /* CHAT */
-#chatBox {
+#chatBox{
   display:none;
   position:fixed;
-  bottom:90px;
-  right:20px;
-  width:320px;
+  bottom:80px;
+  right:15px;
+  width:300px;
   background:white;
-  border-radius:20px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
   padding:10px;
 }
 
-#chatBox h4{
-  margin:0;
-  text-align:center;
-  color:#1c92d2;
-}
-
-#chatMessages{
-  height:200px;
-  overflow-y:auto;
-  margin-bottom:5px;
-}
-
-.message{
-  padding:6px 10px;
-  margin:5px 0;
-  border-radius:10px;
-}
-
 .userMessage{
-  background:#1c92d2;
+  background:#2563eb;
   color:white;
   text-align:right;
 }
 
 .botMessage{
-  background:#e6f0ff;
-  color:#1c92d2;
+  background:#e0e7ff;
+  color:#1e3a8a;
 }
 
 #chatInput{
   width:100%;
-  padding:8px 10px;
+  padding:8px;
   border-radius:10px;
-  border:1px solid #ccc;
+  border:1px solid #cbd5e1;
 }
 
 #chatSend{
-  width:100%;
-  padding:10px;
+  background:#2563eb;
+  color:white;
   border:none;
   border-radius:10px;
-  background:#ff7e5f;
-  color:white;
+  padding:10px;
 }
-
-#chatOptions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  margin-bottom:5px;
-}
-
-#chatOptions button {
-  background:#1c92d2;
-  color:white;
-  border:none;
-  border-radius:8px;
-  padding:5px 8px;
-  font-size:13px;
-}
-.card .detalhes {
-  display: none;
-}
-
-.card.aberto .detalhes {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.card {
-  cursor: pointer;
-}
-
 </style>
+
 </head>
 <body>
 
@@ -358,7 +261,7 @@ button.voltar{
 
 <!-- SLIDER TOPO -->
 <div id="slider">
-  <img src="achaaqui.png" class="active" alt=" ">
+  <img src="sled1.png" class="active" alt=" ">
   <img src="anucie.png" alt=" ">
   <img src="comercios.png" alt=" ">
   <div class="slider-title" id="sliderTitle">🌄 Ache Aqui em Guaraciaba</div>
@@ -677,7 +580,7 @@ assistente.addEventListener("click", ()=>{
   chatOptions.innerHTML = `
     <button onclick="toggleForm('formCadastro');botResponder('Abrindo formulário de cadastro')">Cadastro</button>
     <button onclick="toggleForm('formPlanoDestaque');botResponder('Abrindo formulário de plano destaque')">Plano Destaque</button>
-    <button onclick="window.open('https://api.whatsapp.com/send?phone=88988916133&text=Olá,%20quero%20excluir%20meu%20serviço','_blank');botResponder('Abrindo WhatsApp para exclusão de serviço')">Excluir serviço</button>
+    <button onclick="window.open('https://api.whatsapp.com/send?phone=5588988916133&text=Olá,%20quero%20excluir%20meu%20serviço','_blank');botResponder('Abrindo WhatsApp para exclusão de serviço')">Excluir serviço</button>
   `;
 });
 
@@ -704,6 +607,58 @@ chatSend.addEventListener("click", ()=>{
   else if(m.includes("whatsapp")) botResponder("Clique no botão verde para abrir o WhatsApp.");
   else if(m.includes("excluir")) botResponder("Use o botão Excluir serviço.");
   else if(m.includes("destaque")) botResponder("Plano destaque aparece com borda dourada.");
+  else if(m.includes("cadastro")) botResponder("Clique em Cadastrar Serviço para adicionar seu negócio.");
+else if(m.includes("serviço")) botResponder("Você pode cadastrar qualquer tipo de serviço local.");
+else if(m.includes("telefone")) botResponder("O telefone aparece junto com o serviço cadastrado.");
+else if(m.includes("contato")) botResponder("Use os botões de contato para falar direto com o anunciante.");
+else if(m.includes("gratis")) botResponder("O cadastro básico é totalmente gratuito.");
+else if(m.includes("pagar")) botResponder("Temos planos pagos para dar mais destaque ao seu serviço.");
+else if(m.includes("plano")) botResponder("Os planos ajudam seu serviço aparecer primeiro na lista.");
+else if(m.includes("editar")) botResponder("Para editar, clique no botão Editar serviço.");
+else if(m.includes("imagem")) botResponder("Você pode adicionar uma imagem ao seu serviço.");
+else if(m.includes("foto")) botResponder("Envie uma foto para deixar seu anúncio mais bonito.");
+else if(m.includes("cidade")) botResponder("Os serviços são exibidos por cidade.");
+else if(m.includes("local")) botResponder("O sistema mostra apenas serviços da sua região.");
+else if(m.includes("app")) botResponder("Nosso site funciona como aplicativo no celular.");
+else if(m.includes("site")) botResponder("Este site ajuda você a encontrar serviços locais.");
+else if(m.includes("login")) botResponder("Faça login para gerenciar seus serviços.");
+else if(m.includes("senha")) botResponder("Use a opção recuperar senha se esquecer.");
+else if(m.includes("ajuda")) botResponder("Estou aqui para te ajudar, é só perguntar.");
+else if(m.includes("problema")) botResponder("Descreva o problema que vou tentar te ajudar.");
+else if(m.includes("erro")) botResponder("Se aparecer erro, atualize a página e tente novamente.");
+else if(m.includes("pix")) botResponder("O pagamento pode ser feito via Pix.");
+else if(m.includes("anuncio")) botResponder("Seu anúncio aparece para todos os usuários da cidade.");
+else if(m.includes("como funciona")) botResponder("Você cadastra seu serviço e ele aparece para pessoas da sua cidade.");
+else if(m.includes("divulgar")) botResponder("Seu serviço fica visível para todos que acessarem o site.");
+else if(m.includes("publicar")) botResponder("Depois de cadastrar, seu serviço já fica disponível.");
+else if(m.includes("aprovar")) botResponder("Alguns serviços passam por verificação antes de aparecer.");
+else if(m.includes("verificação")) botResponder("A verificação serve para evitar anúncios falsos.");
+else if(m.includes("tempo")) botResponder("O cadastro aparece em poucos minutos.");
+else if(m.includes("demora")) botResponder("Se demorar, atualize a página.");
+else if(m.includes("categoria")) botResponder("Escolha a categoria correta para seu serviço.");
+else if(m.includes("buscar")) botResponder("Use a barra de pesquisa para encontrar serviços.");
+else if(m.includes("pesquisa")) botResponder("Digite o nome do serviço que procura.");
+else if(m.includes("filtro")) botResponder("Você pode filtrar por tipo de serviço.");
+else if(m.includes("avaliar")) botResponder("Você pode avaliar um serviço depois de usar.");
+else if(m.includes("estrela")) botResponder("As estrelas mostram a qualidade do serviço.");
+else if(m.includes("comentario")) botResponder("Deixe um comentário sobre o atendimento.");
+else if(m.includes("denunciar")) botResponder("Use o botão denunciar para informar problemas.");
+else if(m.includes("remover")) botResponder("Você pode remover seu serviço a qualquer momento.");
+else if(m.includes("perfil")) botResponder("Seu perfil mostra seus serviços cadastrados.");
+else if(m.includes("conta")) botResponder("Sua conta guarda seus dados.");
+else if(m.includes("email")) botResponder("O email é usado para recuperação de acesso.");
+else if(m.includes("whats")) botResponder("O botão verde abre o WhatsApp direto.");
+else if(m.includes("suporte")) botResponder("Entre em contato com o suporte pelo menu ajuda.");
+else if(m.includes("seguro")) botResponder("O site tem sistema de segurança para usuários.");
+else if(m.includes("privacidade")) botResponder("Seus dados não são divulgados sem permissão.");
+else if(m.includes("cancelar")) botResponder("Você pode cancelar seu anúncio quando quiser.");
+else if(m.includes("atualizar")) botResponder("Atualize seus dados sempre que precisar.");
+else if(m.includes("novo")) botResponder("Usuários novos podem cadastrar grátis.");
+else if(m.includes("vantagem")) botResponder("A vantagem é divulgar seu serviço sem pagar.");
+else if(m.includes("funciona no celular")) botResponder("Sim, o site é otimizado para celular.");
+else if(m.includes("abrir no celular")) botResponder("Você pode usar direto pelo navegador do celular.");
+else if(m.includes("instalar")) botResponder("Você pode adicionar o site à tela inicial como app.");
+
   else botResponder("Olá! Sou a GuaraBot 🤖.");
 });
 </script>
