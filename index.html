@@ -583,11 +583,12 @@ function render(arr){
         <button class="btn-ver" onclick="
           const card=this.parentElement;
           card.classList.toggle('aberto');
-          this.innerText = card.classList.contains('aberto') ? '❌ FECHAR' : '👁 VER';
+          this.innerText = card.classList.contains('aberto') ? '⛌ FECHAR' : '👁 VER';
         ">👁 VER</button>
 
         <div class="detalhes">
           <span>Endereço: ${p.endereco}</span>
+          <span>E-mail: ${p.email}</span>
           <span>Horário: ${p.horario || "Não informado"}</span>
           <span>Descrição: ${p.descricao}</span>
 <button onclick="denunciar('${p.nome}')">🚩 Denunciar</button>
@@ -609,12 +610,20 @@ function render(arr){
 
 // ⭐ GERAR ESTRELAS
 function gerarEstrelas(nota){
-  let estrelas="";
-  for(let i=1;i<=5;i++){
-    estrelas += i <= Math.round(nota) ? "⭐" : "☆";
+  let estrelas = "";
+  for(let i = 1; i <= 5; i++){
+    if(nota >= i){
+      estrelas += "★"; 
+    } else if(nota >= i - 0.5){
+      estrelas += "⭑"; 
+    } else {
+      estrelas += "☆"; 
+    }
   }
   return estrelas;
 }
+
+
 
 // ⭐ AVALIAR
 window.avaliar = async (id, valor)=>{
@@ -623,17 +632,25 @@ window.avaliar = async (id, valor)=>{
   if(!snap.exists()) return;
 
   const dados = snap.data();
-  let votos = dados.votos || 0;
-  let nota = dados.nota || 0;
 
-  let novaMedia = ((nota * votos) + valor) / (votos + 1);
+  let votos = dados.votos || 0;
+  let pontos = dados.pontos || 100; 
+  // começa em 1.00 = 100 pontos
+
+  // cada voto soma 1 ponto = 0.01
+  pontos += 1;
+  votos += 1;
+
+  // calcula nota real
+  let nota = (pontos / 100).toFixed(2);
 
   await updateDoc(ref,{
-    nota: novaMedia,
-    votos: votos + 1
+    votos: votos,
+    pontos: pontos,
+    nota: Number(nota)
   });
 
-  alert("⭐ Obrigado por avaliar!");
+  console.log("Nova nota:", nota);
 };
 
 // 🔍 BUSCA
