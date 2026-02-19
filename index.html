@@ -244,17 +244,84 @@ input,textarea,select{
   border-radius:10px;
   padding:10px;
 }
+#intro{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(160deg,#1e3a8a,#2563eb,#38bdf8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:10;
+}
+
+.intro-card{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px);
+  border-radius:25px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  max-width:350px;
+  width:100%;
+  animation:fadeUp 1s ease;
+}
+
+.intro-card h1{
+  font-size:34px;
+  margin:10px 0;
+  color:#fff;
+}
+
+.intro-card p{
+  color:#e0e7ff;
+  font-size:16px;
+  margin-bottom:20px;
+}
+
+.intro-card .logo{
+  font-size:60px;
+}
+
+.intro-card button{
+  background:#22c55e;
+  color:#064e3b;
+  border:none;
+  border-radius:30px;
+  padding:14px 35px;
+  font-size:16px;
+  font-weight:700;
+  width:100%;
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.intro-card small{
+  display:block;
+  margin-top:15px;
+  color:#dbeafe;
+  opacity:.9;
+}
+
+@keyframes fadeUp{
+  from{transform:translateY(20px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
 </style>
 
 </head>
 <body>
 
 <!-- INTRO -->
+<!-- INTRO -->
 <div id="intro">
-  <div class="boneco">👷‍♂️🧹🔧💇‍♀️</div>
-  <h1>AchaAqui</h1>
-  <p>Conecte-se com serviços e comércios da sua cidade.</p>
-  <button onclick="iniciar()">🚀 INICIAR</button>
+  <div class="intro-card">
+    <div class="logo">📍</div>
+    <h1>AchaAqui</h1>
+    <p>Encontre serviços e comércios perto de você em Guaraciaba.</p>
+    <button onclick="iniciar()">🚀 Começar agora</button>
+    <small>Rápido • Grátis • Local</small>
+  </div>
 </div>
 
 <div id="site">
