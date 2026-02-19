@@ -634,23 +634,17 @@ window.avaliar = async (id, valor)=>{
   const dados = snap.data();
 
   let votos = dados.votos || 0;
-  let pontos = dados.pontos || 100; 
-  // começa em 1.00 = 100 pontos
+  let nota = dados.nota || 0;
 
-  // cada voto soma 1 ponto = 0.01
-  pontos += 1;
-  votos += 1;
-
-  // calcula nota real
-  let nota = (pontos / 100).toFixed(2);
+  // calcula nova média
+  let novaNota = ((nota * votos) + valor) / (votos + 1);
 
   await updateDoc(ref,{
-    votos: votos,
-    pontos: pontos,
-    nota: Number(nota)
+    votos: votos + 1,
+    nota: novaNota
   });
 
-  console.log("Nova nota:", nota);
+  alert("Avaliação salva com sucesso!");
 };
 
 // 🔍 BUSCA
