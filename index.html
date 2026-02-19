@@ -337,6 +337,7 @@ input,textarea,select{
 <nav>
   <button onclick="toggleForm('formCadastro')"> ✚ Cadastrar Serviço / Grátis</button>
   <button onclick="toggleForm('formPlanoDestaque')"> ★ Plano Destaque 19,90/mês/vereficão</button>
+  <button onclick="contatoDev()">📞 Falar com o desenvolvedor</button>
 </nav>
 
 
@@ -442,6 +443,9 @@ window.iniciar = ()=>{
 window.voltarPagina = ()=>{
   form.style.display="none";
   formPlano.style.display="none";
+}
+window.contatoDev = ()=>{
+  window.open("https://api.whatsapp.com/send?phone=5588988916133&text=Olá,%20sou%20usuário%20do%20AchaAqui%20e%20preciso%20de%20suporte.","_blank");
 }
 
 window.toggleForm=(id)=>{
@@ -725,6 +729,74 @@ else if(m.includes("vantagem")) botResponder("A vantagem é divulgar seu serviç
 else if(m.includes("funciona no celular")) botResponder("Sim, o site é otimizado para celular.");
 else if(m.includes("abrir no celular")) botResponder("Você pode usar direto pelo navegador do celular.");
 else if(m.includes("instalar")) botResponder("Você pode adicionar o site à tela inicial como app.");
+else if(m.includes("bairro")) botResponder("Você pode buscar serviços pelo bairro.");
+else if(m.includes("endereço")) botResponder("O endereço aparece dentro dos detalhes do serviço.");
+else if(m.includes("mapa")) botResponder("Use o botão Google Maps para ver a localização.");
+else if(m.includes("gps")) botResponder("O GPS ajuda você a chegar até o serviço.");
+else if(m.includes("perto")) botResponder("O sistema mostra serviços próximos da sua região.");
+else if(m.includes("longe")) botResponder("Tente buscar por outro bairro ou tipo de serviço.");
+else if(m.includes("trabalha")) botResponder("Veja o horário de funcionamento nos detalhes.");
+else if(m.includes("aberto")) botResponder("Confira o horário para saber se está aberto.");
+else if(m.includes("fechado")) botResponder("Se estiver fechado, tente outro serviço parecido.");
+else if(m.includes("empresa")) botResponder("Cada empresa tem sua própria página no sistema.");
+else if(m.includes("negocio")) botResponder("Seu negócio pode ser divulgado aqui gratuitamente.");
+else if(m.includes("cliente")) botResponder("Os clientes podem encontrar você facilmente aqui.");
+else if(m.includes("avaliacao")) botResponder("As avaliações ajudam outros usuários a escolher.");
+else if(m.includes("nota")) botResponder("A nota é calculada pelas estrelas dadas pelos usuários.");
+else if(m.includes("ranking")) botResponder("Os melhores serviços aparecem com mais destaque.");
+else if(m.includes("promover")) botResponder("O plano destaque promove seu serviço.");
+else if(m.includes("publicidade")) botResponder("Aqui você divulga seu serviço local.");
+else if(m.includes("propaganda")) botResponder("Seu anúncio fica visível para toda a cidade.");
+else if(m.includes("tempo de resposta")) botResponder("O tempo depende do atendimento da empresa.");
+else if(m.includes("mensagem")) botResponder("Você pode mandar mensagem direto pelo WhatsApp.");
+else if(m.includes("ligar")) botResponder("Você pode ligar usando o número informado.");
+else if(m.includes("telefone fixo")) botResponder("Se informado, aparece junto do cadastro.");
+else if(m.includes("horas")) botResponder("Veja quantas horas a empresa funciona por dia.");
+else if(m.includes("dia")) botResponder("Algumas empresas funcionam apenas em dias úteis.");
+else if(m.includes("domingo")) botResponder("Verifique se o serviço funciona aos domingos.");
+else if(m.includes("sabado")) botResponder("Veja se o serviço funciona no sábado.");
+else if(m.includes("segunda")) botResponder("Os horários variam conforme a empresa.");
+else if(m.includes("urgente")) botResponder("Para serviços urgentes, use o WhatsApp.");
+else if(m.includes("emergencia")) botResponder("Procure serviços que atendem emergência.");
+else if(m.includes("24 horas")) botResponder("Alguns serviços funcionam 24 horas.");
+else if(m.includes("preço")) botResponder("O preço é combinado direto com o prestador.");
+else if(m.includes("valor")) botResponder("Os valores são informados pelo anunciante.");
+else if(m.includes("barato")) botResponder("Compare os serviços para achar o melhor preço.");
+else if(m.includes("caro")) botResponder("Veja outras opções disponíveis.");
+else if(m.includes("orçamento")) botResponder("Você pode pedir orçamento pelo WhatsApp.");
+else if(m.includes("quanto custa")) botResponder("Entre em contato para saber o valor.");
+else if(m.includes("pagamento")) botResponder("O pagamento é combinado direto com a empresa.");
+else if(m.includes("cartão")) botResponder("Pergunte ao anunciante se aceita cartão.");
+else if(m.includes("dinheiro")) botResponder("Alguns aceitam dinheiro como pagamento.");
+else if(m.includes("transferencia")) botResponder("O Pix é a forma mais usada.");
+else if(m.includes("pix")) botResponder("O Pix facilita o pagamento rápido.");
+else if(m.includes("recibo")) botResponder("Peça comprovante ao prestador.");
+else if(m.includes("nota fiscal")) botResponder("Verifique se a empresa emite nota fiscal.");
+else if(m.includes("garantia")) botResponder("Pergunte se o serviço tem garantia.");
+else if(m.includes("qualidade")) botResponder("As estrelas indicam a qualidade do serviço.");
+else if(m.includes("confiavel")) botResponder("Veja a avaliação antes de contratar.");
+else if(m.includes("seguranca")) botResponder("A plataforma ajuda a evitar golpes.");
+else if(m.includes("golpe")) botResponder("Se suspeitar, use o botão denunciar.");
+else if(m.includes("falso")) botResponder("Cadastros falsos podem ser denunciados.");
+else if(m.includes("bloquear")) botResponder("Entre em contato com o suporte.");
+else if(m.includes("reportar")) botResponder("Use a opção denunciar no serviço.");
+else if(m.includes("reclamar")) botResponder("Você pode denunciar um serviço ruim.");
+else if(m.includes("elogiar")) botResponder("Avalie com 5 estrelas para elogiar.");
+else if(m.includes("obrigado")) botResponder("Por nada! Estou aqui para ajudar 😄");
+else if(m.includes("valeu")) botResponder("Disponha! Sempre que precisar 😎");
+else if(m.includes("bom dia")) botResponder("Bom dia! Como posso te ajudar?");
+else if(m.includes("boa tarde")) botResponder("Boa tarde! O que você procura?");
+else if(m.includes("boa noite")) botResponder("Boa noite! Precisa de algum serviço?");
+else if(m.includes("oi")) botResponder("Oi! 😄 Em que posso te ajudar?");
+else if(m.includes("ola")) botResponder("Olá! Seja bem-vindo ao AchaAqui!");
+else if(m.includes("tchau")) botResponder("Até mais! Volte sempre 👋");
+else if(m.includes("sair")) botResponder("Você pode fechar o site quando quiser.");
+else if(m.includes("fechar")) botResponder("É só sair da página para encerrar.");
+else if(m.includes("desenvolvedor")) botResponder("Você pode falar direto com o desenvolvedor pelo botão 📞 Falar com o desenvolvedor.");
+else if(m.includes("criador")) botResponder("O criador do site é o próprio desenvolvedor do AchaAqui. Clique em 📞 Falar com o desenvolvedor.");
+else if(m.includes("programador")) botResponder("Sou mantido pelo desenvolvedor do AchaAqui. Quer que eu abra o WhatsApp dele?");
+else if(m.includes("suporte tecnico")) botResponder("O suporte técnico é feito direto pelo desenvolvedor.");
+else if(m.includes("falar com voce")) botResponder("Você pode falar comigo pelo WhatsApp do desenvolvedor 😄");
 
   else botResponder("Olá! Sou a GuaraBot 🤖.");
 });
